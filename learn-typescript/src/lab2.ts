@@ -1,14 +1,15 @@
- enum rate {low = 'Thấp', medium = 'Trung bình', hight = 'Cao'}
+ enum Rate {low = 'Thấp', medium = 'Trung bình', hight = 'Cao'}
 const products:{name: string,
 price: number,
 sale: boolean,
-rate: rate
+rate: Rate
 } =
 {
     name: "Sample Product",
     price: 100,
     sale: true,
-    rate: rate.medium
+    rate: Rate.medium
 
 }
+console.log(products);
 
