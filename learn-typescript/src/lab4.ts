@@ -109,3 +109,44 @@ const product: Product = {
 };
 
 console.log(product);
+
+// //generic
+// function getStudent<T>(student: T): T {
+//    return student;
+// }
+// getStudent<Student>(student);
+// getStudent<User>(user);
+// getStudent<Product>(product);
+
+
+// Bài 4 Tạo
+
+// type Status = "loading" | "success" | "error";
+type Status = "loading" | "success" | "error";
+// Viết hàm:
+function logStatus(status: Status) {
+    console.log(`Status: ${status}`);
+}
+
+// function logStatus(status: Status);
+
+// Hiển thị thông báo tương ứng.
+
+// Bài 5
+
+// Viết hàm Generic
+
+// function identity<T>(value: T): T;
+function identity<T>(value: T): T {
+    return value;
+}
+// Gọi thử với:
+
+// number
+console.log(identity<number>(123));
+
+// string
+console.log(identity<string>("111"));
+
+// boolean
+console.log(identity<boolean>(true));
