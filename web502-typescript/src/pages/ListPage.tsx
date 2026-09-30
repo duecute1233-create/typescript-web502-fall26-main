@@ -1,26 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface Todo {
+  id: string;
+  title: string;
+  completed: boolean;
+}
 
 function ListPage() {
-  // const item = { id: "1", title: "Học React", completed: false };
-  const data = [
-    {
-      id: "1",
-      title: "Học React",
-      completed: false,
-    },
-    {
-      id: "2",
-      title: "Học TypeScript",
-      completed: false,
-    },
-    {
-      id: "3",
-      title: "Làm bài tập",
-      completed: true,
-    },
-  ];
-  const [todos, setTodos] = useState(data); // array rong []
-  // map trong jsnc
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  function getTodos() {
+    axios.get("http://localhost:3000/todos").then((res) => {
+      setTodos(res.data);
+    });
+  }
+  useEffect(() => {
+    getTodos();
+  }, []);
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Danh sách</h1>
@@ -43,9 +41,9 @@ function ListPage() {
           </thead>
 
           <tbody>
-            {todos.map((item) => {
+            {todos.map((item: Todo) => {
               return (
-                <tr className="hover:bg-gray-50">
+                <tr key={item.id} className="hover:bg-gray-50">
                   <td className="px-4 py-2 border border-gray-300">
                     {item.id}
                   </td>
