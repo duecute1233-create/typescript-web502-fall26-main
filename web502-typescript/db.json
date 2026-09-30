@@ -1,12 +1,19 @@
 {
-  "students": [
+  "todos": [
     {
       "id": "1",
-      "fullName": "Nguyễn Văn A",
-      "year": 2005,
-      "code": "ph6688",
-      "major": "Marketing"
+      "title": "Học React",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Học TypeScript",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "title": "Làm bài tập",
+      "completed": true
     }
-  ],
-  "users": []
+  ]
 }
