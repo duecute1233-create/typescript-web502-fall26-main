@@ -10,12 +10,12 @@ interface Todo {
 function ListPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  function getTodos() {
-    axios.get("http://localhost:3000/todos").then((res) => {
-      setTodos(res.data);
-    });
-  }
   useEffect(() => {
+    function getTodos() {
+      axios.get("http://localhost:3000/todos").then((res) => {
+        setTodos(res.data);
+      });
+    }
     getTodos();
   }, []);
 
@@ -53,7 +53,9 @@ function ListPage() {
                   <td className="px-4 py-2 border border-gray-300">
                     {item.completed ? "Hoan thanh" : "Chua hoan thanh"}
                   </td>
-                  <td className="px-4 py-2 border border-gray-300">Edit</td>
+                  <td className="px-4 py-2 border border-gray-300">
+                    <button>Delete</button>
+                  </td>
                 </tr>
               );
             })}
