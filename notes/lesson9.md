@@ -1052,138 +1052,6 @@ Input rỗng
 
 ---
 
-# 27. Cập nhật App.tsx
-
-App cần nhận Todo mới:
-
-```tsx
-const addTodo = (todo: Todo) => {
-  setTodos((currentTodos) => [...currentTodos, todo]);
-};
-```
-
-Ở đây:
-
-```tsx
-[...currentTodos, todo];
-```
-
-có nghĩa là:
-
-```text
-Todo cũ
-+
-Todo mới
-```
-
----
-
-# 28. App hoàn chỉnh
-
-```tsx
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-import TodoForm from "./components/TodoForm";
-import TodoItem from "./components/TodoItem";
-
-import type { Todo } from "./types/todo";
-
-function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const getTodos = async () => {
-    try {
-      setLoading(true);
-      setError("");
-
-      const response = await axios.get<Todo[]>("http://localhost:3000/todos");
-
-      setTodos(response.data);
-    } catch (error) {
-      console.error(error);
-      setError("Không thể tải danh sách Todo");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const addTodo = (todo: Todo) => {
-    setTodos((currentTodos) => [...currentTodos, todo]);
-  };
-
-  const deleteTodo = async (id: string) => {
-    try {
-      await axios.delete(`http://localhost:3000/todos/${id}`);
-
-      setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
-    } catch (error) {
-      console.error(error);
-      setError("Không thể xóa Todo");
-    }
-  };
-
-  useEffect(() => {
-    getTodos();
-  }, []);
-
-  if (loading) {
-    return <p>Đang tải...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  return (
-    <div>
-      <h1>Todo List</h1>
-
-      <TodoForm onAdd={addTodo} />
-
-      <hr />
-
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} onDelete={deleteTodo} />
-      ))}
-    </div>
-  );
-}
-
-export default App;
-```
-
----
-
-# 29. TodoItem giữ nguyên
-
-```tsx
-import type { Todo } from "../types/todo";
-
-interface TodoItemProps {
-  todo: Todo;
-  onDelete: (id: string) => void;
-}
-
-function TodoItem({ todo, onDelete }: TodoItemProps) {
-  return (
-    <div>
-      <span>{todo.title}</span>
-
-      {todo.completed && <span> - Đã hoàn thành</span>}
-
-      <button onClick={() => onDelete(todo.id)}>Xóa</button>
-    </div>
-  );
-}
-
-export default TodoItem;
-```
-
----
-
 # 30. Luồng hoạt động toàn bộ Lesson 9
 
 Đây là phần sinh viên cần đặc biệt nhớ.
@@ -1751,17 +1619,6 @@ reset();
 
 # 39. Tổng kết Lesson 9
 
-Lesson 8:
-
-```text
-GET
-DELETE
-Axios
-useEffect
-```
-
-Lesson 9 bổ sung:
-
 ```text
 POST
 React Hook Form
@@ -1800,44 +1657,7 @@ Luồng hoàn chỉnh:
                   UI
 ```
 
-## Chuỗi kiến thức từ Lesson 7 → Lesson 9
-
-```text
-Lesson 7
-State
-useState
-Props
-Event
-     ↓
-Lesson 8
-API
-Axios
-useEffect
-GET
-DELETE
-     ↓
-Lesson 9
-Form
-React Hook Form
-Validation
-POST
-     ↓
-Lesson 10
-PUT / PATCH
-Edit Todo
-     ↓
-CRUD hoàn chỉnh
-     ↓
-React Router
-     ↓
-API Service
-     ↓
-Axios Instance
-     ↓
-TanStack Query
-```
-
-**Điểm quan trọng nhất của Lesson 9:** sinh viên không chỉ học cách "tạo Form", mà cần hiểu được luồng:
+**Điểm quan trọng nhất của Lesson 9:** Cần hiểu được luồng:
 
 ```text
 register
