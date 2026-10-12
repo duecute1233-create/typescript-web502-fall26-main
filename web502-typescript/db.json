@@ -6,14 +6,10 @@
       "completed": false
     },
     {
-      "id": "2",
-      "title": "Học TypeScript",
-      "completed": false
-    },
-    {
       "id": "3",
-      "title": "Làm bài tập",
-      "completed": true
+      "title": "mymuy",
+      "completed": true,
+      "priority": ""
     }
   ]
 }
