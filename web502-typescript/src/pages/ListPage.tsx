@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface Todo {
@@ -9,6 +10,7 @@ interface Todo {
 
 function ListPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const navigate = useNavigate();     
 
   useEffect(() => {
     function getTodos() {
@@ -18,6 +20,11 @@ function ListPage() {
     }
     getTodos();
   }, []);
+  function handleDelete(id: string) {
+    axios.delete(`http://localhost:3000/todos/${id}`).then(() => {
+      setTodos((prev) => prev.filter((item) => item.id !== id));
+    });
+  }
 
   return (
     <div className="p-6">
@@ -54,7 +61,8 @@ function ListPage() {
                     {item.completed ? "Hoan thanh" : "Chua hoan thanh"}
                   </td>
                   <td className="px-4 py-2 border border-gray-300">
-                    <button>Delete</button>
+                    <button className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition" onClick={() => handleDelete(item.id)}  >Delete</button>
+                    <button className="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"  onClick={() => navigate(`/edit/${item.id}`)}>  Edit</button>
                   </td>
                 </tr>
               );
